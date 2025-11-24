@@ -1,118 +1,293 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<title>YingMusic-SVC Demo</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<style>
-body {
-    font-family: Arial, sans-serif;
-    margin: 0; padding: 0;
-    line-height: 1.6;
-    background: #fafafa;
-    color: #222;
-}
-.container { width: 90%; max-width: 1000px; margin: auto; padding: 30px 0; }
-h1, h2, h3 { text-align: center; margin-bottom: 15px; }
-.hero {
-    width: 100%; text-align: center; margin: 25px 0;
-}
-.hero img {
-    width: 95%; max-width: 960px;
-    border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-}
-.section { margin: 50px 0; }
-.audio-table {
-    width: 100%; border-collapse: collapse; margin-top: 20px;
-}
-.audio-table th, .audio-table td {
-    border-bottom: 1px solid #ddd;
-    padding: 12px;
-    text-align: center;
-}
-audio { width: 230px; }
-.footer {
-    text-align: center; margin-top: 60px; color: #777; font-size: 14px;
-}
-</style>
-</head>
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>YingMusic-SVC</title>
+        <link rel="stylesheet" type="text/css" href="index.css">
+    </head>
+    
+    <body>
+        <!-- ================= Header ================= -->
+        <header class="content">
+            <div class="centerAlign">
+                <h1>YingMusic-SVC:&nbsp;Real-World&nbsp;Robust&nbsp;Zero-Shot<br>Singing&nbsp;Voice&nbsp;Conversion&nbsp;with&nbsp;Flow-GRPO&nbsp;and<br>Singing-Specific&nbsp;Inductive&nbsp;Biases</h1>
+            </div>
+            <div class="centerAlign">
+                <p>
+                    <span>Gongyu&nbsp;Chen<sup>1</sup></span><span>,&nbsp;</span>
+                    <span>Xiaoyu&nbsp;Zhang<sup>1,2</sup></span><span>,&nbsp;</span>
+                    <span>Zhenqiang&nbsp;Weng<sup>1,3</sup></span><span>,&nbsp;</span>
+                    <span>Junjie&nbsp;Zheng<sup>1</sup></span><span>,&nbsp;</span>
+                    <span>Da&nbsp;Shen<sup>4</sup></span><span>,&nbsp;</span>
+                    <span>Chaofan&nbsp;Ding<sup>1</sup></span><span>,&nbsp;</span>
+                    <span>Weiqiang&nbsp;Zhang<sup>4</sup></span><span>,&nbsp;</span>
+                    <span>Zihao&nbsp;Chen<sup>1</sup></span>
+                    <br><br>
+                    <span><sup>1</sup>GiantNetwork&nbsp;AI&nbsp;Lab</span>
+                    <br>
+                    <span><sup>2</sup>University&nbsp;College&nbsp;London&nbsp;(UCL)</span>
+                    <br>
+                    <span><sup>3</sup>East&nbsp;China&nbsp;University&nbsp;of&nbsp;Science&nbsp;and&nbsp;Technology</span>
+                    <br>
+                    <span><sup>4</sup>SATLab,&nbsp;Tsinghua&nbsp;University</span>
+                </p>
+            </div>
+            <div class="centerAlign">
+                <p>
+                    <!-- TODO: 替换成真实链接 -->
+                    <a class="a_paper" href="https://arxiv.org/abs/xxxx.xxxxx" target="_blank">[Paper]</a>
+                    &nbsp;
+                    <a class="a_paper" href="https://github.com/your_repo_here" target="_blank">[Code]</a>
+                </p>
+            </div>
+        </header>
 
-<body>
-<div class="container">
+        <!-- ================= Content TOC ================= -->
+        <article class="content">
+            <div class="centerAlign">
+                <h2>Content</h2>
+            </div>
+            <div class="leftAlign">
+                <p>
+                    <a href="#section1" style="line-height: 1.5;">Overview&nbsp;&amp;&nbsp;Teaser</a>
+                    <br>
+                    <a href="#section2" style="line-height: 1.5;">Abstract</a>
+                    <br>
+                    <a href="#section3" style="line-height: 1.5;">Method</a>
+                    <br>
+                    <a href="#section4" style="line-height: 1.5;">Evaluation&nbsp;Overview</a>
+                    <br>
+                    <a href="#section5" style="line-height: 1.5;">Audio&nbsp;Examples</a>
+                    <br>
+                    <a class="a_sub" href="#section5_1" style="line-height: 1.25;">GT&nbsp;Leading&nbsp;(Clean&nbsp;Vocals)</a>
+                    <br>
+                    <a class="a_sub" href="#section5_2" style="line-height: 1.25;">Mix&nbsp;Vocal&nbsp;(Separated&nbsp;Vocals)</a>
+                    <br>
+                    <a class="a_sub" href="#section5_3" style="line-height: 1.25;">Ours&nbsp;Leading&nbsp;(Full&nbsp;Pipeline)</a>
+                </p>
+            </div>
+        </article>
 
-<h1>YingMusic-SVC</h1>
-<h3>Real-World Robust Zero-Shot Singing Voice Conversion</h3>
+        <!-- ================= Section 1: Overview / Teaser ================= -->
+        <article class="content" id="section1">
+            <div class="centerAlign">
+                <h2>Overview&nbsp;&amp;&nbsp;Teaser</h2>
+            </div>
+            <div class="centerAlign">
+                <!-- 头图：用你的 overview 图 / 对比图 -->
+                <img class="img_illustration" src="images/overview.png" alt="Overview of YingMusic-SVC">
+            </div>
+            <div class="centerAlign">
+                <p>Figure&nbsp;1:&nbsp;Overview&nbsp;of&nbsp;YingMusic-SVC&nbsp;and&nbsp;its&nbsp;industrial&nbsp;SVC&nbsp;pipeline.</p>
+            </div>
+            <!-- 如果你有宣传视频，可以像 YingSound 一样放一个 video；没有就可以删掉这一块 -->
+            <!--
+            <div class="centerAlign">
+                <video style="width: 640px;" controls>
+                    <source src="videos/teaser.mp4">
+                </video>
+            </div>
+            -->
+        </article>
 
-<div class="hero">
-    <img src="assets/header.png" alt="Overview Figure">
-</div>
+        <!-- ================= Section 2: Abstract ================= -->
+        <article class="content" id="section2">
+            <div class="centerAlign">
+                <h2>Abstract</h2>
+            </div>
+            <div class="leftAlign">
+                <p>
+Singing voice conversion (SVC) aims to transform the vocal timbre of a source singer into that of a target singer while preserving the original musical content. 
+Although recent zero-shot SVC systems achieve strong performance on clean a&nbsp;cappella vocals, they still struggle under real-world production conditions, 
+where residual harmonies, separation artifacts, and noisy F0 extraction frequently occur. 
+To bridge this gap, we propose <span style="font-style: italic;">YingMusic-SVC</span>, a real-world robust zero-shot SVC framework tailored for industrial pipelines. 
+Our system combines an RVC-based timbre shifter, an F0-aware fine-grained timbre adaptor, and a frequency-aware energy-balanced rectified flow objective, 
+together with a multi-stage training pipeline (CPT&nbsp;→&nbsp;SFT&nbsp;→&nbsp;Flow-GRPO&nbsp;RL). 
+Extensive experiments on difficulty-graded test suites demonstrate that YingMusic-SVC consistently improves speaker similarity, intelligibility, and perceptual aesthetics over strong baselines such as Seed-VC, 
+particularly in challenging scenarios with mixture vocals and separated lead tracks.
+                </p>
+            </div>
+        </article>
 
-<!-- ---------------- About Section ---------------- -->
-<div class="section">
-<h2>Overview</h2>
-<p>
-YingMusic-SVC is a real-world robust zero-shot singing voice conversion system,
-featuring Band-Roformer separation, RVC-based timbre shifting,  
-F0-aware timbre adaptation, energy-balanced flow matching, and Flow-GRPO reinforcement learning.
-</p>
-</div>
+        <!-- ================= Section 3: Method ================= -->
+        <article class="content" id="section3">
+            <div class="centerAlign">
+                <h2>Method</h2>
+            </div>
+            <div class="centerAlign">
+                <img class="img_illustration" src="images/method.png" alt="Method of YingMusic-SVC">
+            </div>
+            <div class="centerAlign">
+                <p>Figure&nbsp;2:&nbsp;Architecture&nbsp;of&nbsp;YingMusic-SVC,&nbsp;including&nbsp;timbre&nbsp;shifter,&nbsp;F0-aware&nbsp;timbre&nbsp;adaptor,&nbsp;and&nbsp;DiT-based&nbsp;rectified&nbsp;flow&nbsp;generator.</p>
+            </div>
+            <div class="leftAlign">
+                <p>
+YingMusic-SVC builds upon a DiT-based rectified flow model operating on log-mel spectrograms. 
+The input vocal is encoded by three frozen encoders to obtain content, global timbre, and F0 features. 
+In parallel, an RVC-based timbre shifter converts the source singing into randomized timbres, producing a shift-content representation that explicitly suppresses source-speaker leakage. 
+A lightweight F0-aware timbre adaptor then transforms the global target embedding into a fine-grained timbre map aligned with the local pitch contour. 
+All conditioning features are temporally aligned to the mel frames and concatenated in a Seed-VC-style “leading/semantic” masking scheme, where early frames primarily provide timbre cues and later frames emphasize content. 
+The rectified flow model is trained with a frequency-aware energy-balanced loss that assigns higher weights to low-energy high-frequency components and later denoising steps, encouraging sharper harmonic details in singing voice generation.
+                </p>
+            </div>
+        </article>
 
-<!-- ---------------- Demo Section ---------------- -->
-<div class="section">
-<h2>Audio Demos</h2>
+        <!-- ================= Section 4: Evaluation Overview ================= -->
+        <article class="content" id="section4">
+            <div class="centerAlign">
+                <h2>Evaluation&nbsp;Overview</h2>
+            </div>
+            <div class="leftAlign">
+                <p>
+We evaluate YingMusic-SVC on a difficulty-graded test suite derived from internal multi-track singing data. 
+We randomly sample 100 clips of 10–20&nbsp;s that contain semantically meaningful singing content. 
+The <span style="font-style: italic;">GT&nbsp;Leading</span> set uses only the clean lead vocal track, 
+while the <span style="font-style: italic;">Mix&nbsp;Vocal</span> set merges lead and backing tracks to simulate real outputs from source-separation front-ends. 
+In addition, we report results on an <span style="font-style: italic;">Ours&nbsp;Leading</span> set constructed from vocals separated by our in-house Band-Roformer model, reflecting the full industrial pipeline.
+For each setting, we select five target timbres covering both genders and different age ranges, and all songs and speakers are unseen during training.
+                </p>
+                <p>
+For objective metrics, we report speaker embedding cosine similarity (SPK-SIM), character error rate (CER), log-F0 Pearson correlation (LogF0PCC), and aesthetic scores (CE/CU) from Audiobox Aesthetics. 
+For subjective evaluation, we conduct CMOS and SMOS listening tests with 10 listeners on 20 randomly selected source–target pairs, comparing YingMusic-SVC to strong baselines including FreeSVC and Seed-VC.
+                </p>
+            </div>
+        </article>
 
-<h3>1. GT Leading (Clean Vocals)</h3>
-<table class="audio-table">
-<tr><th>Source</th><th>Target</th><th>Seed-VC</th><th>YingMusic-SVC</th></tr>
-<tr>
-<td><audio controls src="assets/audio/gt1_src.wav"></audio></td>
-<td><audio controls src="assets/audio/gt1_tgt.wav"></audio></td>
-<td><audio controls src="assets/audio/gt1_seedvc.wav"></audio></td>
-<td><audio controls src="assets/audio/gt1_ours.wav"></audio></td>
-</tr>
-</table>
+        <!-- ================= Section 5: Audio Examples ================= -->
+        <article class="content" id="section5">
+            <div class="centerAlign">
+                <h2>Audio&nbsp;Examples</h2>
+            </div>
 
-<h3>2. Mix Vocal (Separated Vocals)</h3>
-<table class="audio-table">
-<tr><th>Source (Mix)</th><th>Target</th><th>Seed-VC</th><th>YingMusic-SVC</th></tr>
-<tr>
-<td><audio controls src="assets/audio/mix1_src.wav"></audio></td>
-<td><audio controls src="assets/audio/mix1_tgt.wav"></audio></td>
-<td><audio controls src="assets/audio/mix1_seedvc.wav"></audio></td>
-<td><audio controls src="assets/audio/mix1_ours.wav"></audio></td>
-</tr>
-</table>
+            <!-- ---- 5.1 GT Leading ---- -->
+            <div class="leftAlign" id="section5_1">
+                <h3>GT&nbsp;Leading&nbsp;(Clean&nbsp;Vocals)</h3>
+                <p>Source clean lead vocal, target reference, baseline Seed-VC, and YingMusic-SVC outputs.</p>
+            </div>
+            <div class="row">
+                <div class="cell">
+                    <p>Source</p>
+                    <audio controls>
+                        <source src="audio/gt_leading/src_01.wav">
+                    </audio>
+                </div>
+                <div class="cell">
+                    <p>Target</p>
+                    <audio controls>
+                        <source src="audio/gt_leading/tgt_01.wav">
+                    </audio>
+                </div>
+                <div class="cell">
+                    <p>Seed-VC</p>
+                    <audio controls>
+                        <source src="audio/gt_leading/seedvc_01.wav">
+                    </audio>
+                </div>
+                <div class="cell">
+                    <p>YingMusic-SVC</p>
+                    <audio controls>
+                        <source src="audio/gt_leading/ours_01.wav">
+                    </audio>
+                </div>
+            </div>
+            <div class="row">
+                <div class="cell">
+                    <p>Source</p>
+                    <audio controls>
+                        <source src="audio/gt_leading/src_02.wav">
+                    </audio>
+                </div>
+                <div class="cell">
+                    <p>Target</p>
+                    <audio controls>
+                        <source src="audio/gt_leading/tgt_02.wav">
+                    </audio>
+                </div>
+                <div class="cell">
+                    <p>Seed-VC</p>
+                    <audio controls>
+                        <source src="audio/gt_leading/seedvc_02.wav">
+                    </audio>
+                </div>
+                <div class="cell">
+                    <p>YingMusic-SVC</p>
+                    <audio controls>
+                        <source src="audio/gt_leading/ours_02.wav">
+                    </audio>
+                </div>
+            </div>
 
-<h3>3. Ours Leading (Band-Roformer Pipeline)</h3>
-<table class="audio-table">
-<tr><th>Original Song</th><th>Separated Lead</th><th>Seed-VC</th><th>YingMusic-SVC</th></tr>
-<tr>
-<td><audio controls src="assets/audio/song_mix.wav"></audio></td>
-<td><audio controls src="assets/audio/song_lead.wav"></audio></td>
-<td><audio controls src="assets/audio/song_seedvc.wav"></audio></td>
-<td><audio controls src="assets/audio/song_ours.wav"></audio></td>
-</tr>
-</table>
+            <!-- ---- 5.2 Mix Vocal ---- -->
+            <div class="leftAlign" id="section5_2">
+                <h3>Mix&nbsp;Vocal&nbsp;(Separated&nbsp;Vocals)</h3>
+                <p>Lead+backing mixtures simulating separation outputs, converted by Seed-VC and YingMusic-SVC.</p>
+            </div>
+            <div class="row">
+                <div class="cell">
+                    <p>Source&nbsp;(Mix)</p>
+                    <audio controls>
+                        <source src="audio/mix_vocal/src_01.wav">
+                    </audio>
+                </div>
+                <div class="cell">
+                    <p>Target</p>
+                    <audio controls>
+                        <source src="audio/mix_vocal/tgt_01.wav">
+                    </audio>
+                </div>
+                <div class="cell">
+                    <p>Seed-VC</p>
+                    <audio controls>
+                        <source src="audio/mix_vocal/seedvc_01.wav">
+                    </audio>
+                </div>
+                <div class="cell">
+                    <p>YingMusic-SVC</p>
+                    <audio controls>
+                        <source src="audio/mix_vocal/ours_01.wav">
+                    </audio>
+                </div>
+            </div>
 
-</div>
+            <!-- ---- 5.3 Ours Leading ---- -->
+            <div class="leftAlign" id="section5_3">
+                <h3>Ours&nbsp;Leading&nbsp;(Full&nbsp;Pipeline)</h3>
+                <p>End-to-end SVC with Band-Roformer separation front-end and YingMusic-SVC conversion.</p>
+            </div>
+            <div class="row">
+                <div class="cell">
+                    <p>Original&nbsp;Song</p>
+                    <audio controls>
+                        <source src="audio/ours_leading/song_mix_01.wav">
+                    </audio>
+                </div>
+                <div class="cell">
+                    <p>Separated&nbsp;Lead</p>
+                    <audio controls>
+                        <source src="audio/ours_leading/song_lead_01.wav">
+                    </audio>
+                </div>
+                <div class="cell">
+                    <p>Seed-VC</p>
+                    <audio controls>
+                        <source src="audio/ours_leading/seedvc_01.wav">
+                    </audio>
+                </div>
+                <div class="cell">
+                    <p>YingMusic-SVC</p>
+                    <audio controls>
+                        <source src="audio/ours_leading/ours_01.wav">
+                    </audio>
+                </div>
+            </div>
 
-<!-- ---------------- Citation ---------------- -->
-<div class="section">
-<h2>Citation</h2>
-<pre>
-@article{yingmusic_svc,
-  title   = {YingMusic-SVC: Real-World Robust Zero-Shot Singing Voice Conversion},
-  author  = {TODO},
-  year    = {2025}
-}
-</pre>
-</div>
-
-<div class="footer">
-YingMusic-SVC © 2025
-</div>
-
-</div>
-</body>
+        </article>
+        
+        <!-- ================= Footer ================= -->
+        <footer class="content">
+            <div class="centerAlign">
+                <p>©&nbsp;2025&nbsp;GiantNetwork&nbsp;AI&nbsp;Lab.&nbsp;All&nbsp;rights&nbsp;reserved.</p>
+            </div>
+        </footer>
+    </body>
 </html>
