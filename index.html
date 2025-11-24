@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>YingMusic-SVC Demo</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body {
+    font-family: Arial, sans-serif;
+    margin: 0; padding: 0;
+    line-height: 1.6;
+    background: #fafafa;
+    color: #222;
+}
+.container { width: 90%; max-width: 1000px; margin: auto; padding: 30px 0; }
+h1, h2, h3 { text-align: center; margin-bottom: 15px; }
+.hero {
+    width: 100%; text-align: center; margin: 25px 0;
+}
+.hero img {
+    width: 95%; max-width: 960px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+.section { margin: 50px 0; }
+.audio-table {
+    width: 100%; border-collapse: collapse; margin-top: 20px;
+}
+.audio-table th, .audio-table td {
+    border-bottom: 1px solid #ddd;
+    padding: 12px;
+    text-align: center;
+}
+audio { width: 230px; }
+.footer {
+    text-align: center; margin-top: 60px; color: #777; font-size: 14px;
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+
+<h1>YingMusic-SVC</h1>
+<h3>Real-World Robust Zero-Shot Singing Voice Conversion</h3>
+
+<div class="hero">
+    <img src="assets/header.png" alt="Overview Figure">
+</div>
+
+<!-- ---------------- About Section ---------------- -->
+<div class="section">
+<h2>Overview</h2>
+<p>
+YingMusic-SVC is a real-world robust zero-shot singing voice conversion system,
+featuring Band-Roformer separation, RVC-based timbre shifting,  
+F0-aware timbre adaptation, energy-balanced flow matching, and Flow-GRPO reinforcement learning.
+</p>
+</div>
+
+<!-- ---------------- Demo Section ---------------- -->
+<div class="section">
+<h2>Audio Demos</h2>
+
+<h3>1. GT Leading (Clean Vocals)</h3>
+<table class="audio-table">
+<tr><th>Source</th><th>Target</th><th>Seed-VC</th><th>YingMusic-SVC</th></tr>
+<tr>
+<td><audio controls src="assets/audio/gt1_src.wav"></audio></td>
+<td><audio controls src="assets/audio/gt1_tgt.wav"></audio></td>
+<td><audio controls src="assets/audio/gt1_seedvc.wav"></audio></td>
+<td><audio controls src="assets/audio/gt1_ours.wav"></audio></td>
+</tr>
+</table>
+
+<h3>2. Mix Vocal (Separated Vocals)</h3>
+<table class="audio-table">
+<tr><th>Source (Mix)</th><th>Target</th><th>Seed-VC</th><th>YingMusic-SVC</th></tr>
+<tr>
+<td><audio controls src="assets/audio/mix1_src.wav"></audio></td>
+<td><audio controls src="assets/audio/mix1_tgt.wav"></audio></td>
+<td><audio controls src="assets/audio/mix1_seedvc.wav"></audio></td>
+<td><audio controls src="assets/audio/mix1_ours.wav"></audio></td>
+</tr>
+</table>
+
+<h3>3. Ours Leading (Band-Roformer Pipeline)</h3>
+<table class="audio-table">
+<tr><th>Original Song</th><th>Separated Lead</th><th>Seed-VC</th><th>YingMusic-SVC</th></tr>
+<tr>
+<td><audio controls src="assets/audio/song_mix.wav"></audio></td>
+<td><audio controls src="assets/audio/song_lead.wav"></audio></td>
+<td><audio controls src="assets/audio/song_seedvc.wav"></audio></td>
+<td><audio controls src="assets/audio/song_ours.wav"></audio></td>
+</tr>
+</table>
+
+</div>
+
+<!-- ---------------- Citation ---------------- -->
+<div class="section">
+<h2>Citation</h2>
+<pre>
+@article{yingmusic_svc,
+  title   = {YingMusic-SVC: Real-World Robust Zero-Shot Singing Voice Conversion},
+  author  = {TODO},
+  year    = {2025}
+}
+</pre>
+</div>
+
+<div class="footer">
+YingMusic-SVC © 2025
+</div>
+
+</div>
+</body>
+</html>
